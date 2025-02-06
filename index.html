@@ -94,14 +94,14 @@
     }
 
     .toggle-dot,
-    .toggle-dot1 {
+    .toggle-dot1,
+    .toggle-dot2,
+    .toggle-dot3 {
       width: 10px;
       height: 10px;
       background-color: red;
       border-radius: 50%;
       position: fixed;
-      bottom: 20px;
-      right: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -113,7 +113,23 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
+    .toggle-dot,
     .toggle-dot1 {
+      bottom: 20px;
+    }
+
+    .toggle-dot2,
+    .toggle-dot3 {
+      top: 20px;
+    }
+
+    .toggle-dot,
+    .toggle-dot3 {
+      right: 20px;
+    }
+
+    .toggle-dot1,
+    .toggle-dot2 {
       left: 20px;
     }
 
@@ -137,7 +153,7 @@
 
     /* Chữ Chúc Mừng Năm Mới */
     .tet-text {
-      font-size: 3rem;
+      font-size: 40px;
       font-weight: bold;
       color: #FFD700;
       text-shadow: 2px 2px 10px red;
@@ -167,17 +183,15 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .lixi-container {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
     @media (max-width: 480px) {
       .toggle-dot {
         width: 10px;
         height: 10px;
         font-size: 14px;
+      }
+
+      .tet-text {
+        font-size: 24px;
       }
 
       .lixi-container {
@@ -189,7 +203,8 @@
 
 <body>
   <div id="overlay">
-    <div class="tet-text">🎉 Chúc Mừng Năm Mới! 🎆</div>
+    <div class="tet-text">🎉 Chúc Mừng Năm Mới! 🎉</div>
+    <div class="tet-text">🎊 Cùng nhau thử vận may 2025 🎊</div>
   </div>
   <audio id="lixiAudio" src="lixi.mp3"></audio>
 
@@ -198,6 +213,8 @@
   <div class="lixi-container">
     <div class="toggle-dot" id="toggleDot">🔴</div>
     <div class="toggle-dot1">🔴</div>
+    <div class="toggle-dot2">🔴</div>
+    <div class="toggle-dot3">🔴</div>
     <script>
       let rewards = [
         "Một tràng vỗ tay", "Chúc em vạn sự như ý, an khang thịnh vượng", "Chúc bạn may mắn lần sau!",
@@ -206,7 +223,7 @@
 
       let rewards2 = [
         "Một tràng vỗ tay", "Chúc em vạn sự như ý, an khang thịnh vượng", "Chúc bạn may mắn lần sau!",
-        "500.000đ", "100.000đ", "200.000đ", "500.000đ", "100.000đ", "200.000đ", "100.000đ", "500.000đ", "500.000đ"
+        "1.000đ", "2.000đ", "5.000đ", "10.000đ", "20.000đ", "100.000đ", "200.000đ", "500.000đ", "50.000đ"
       ];
 
       for (let i = 0; i < 12; i++) {
@@ -248,10 +265,20 @@
       });
       let useAltRewards = false;
 
-      $("#toggleDot").click(function () {
+      function toggleRewards() {
         useAltRewards = !useAltRewards;
-        $(this).toggleClass("green");
-        $(this).html(useAltRewards ? "🟠" : "🔴");
+        $("#toggleDot").toggleClass("green");
+        $("#toggleDot").html(useAltRewards ? "🟠" : "🔴");
+      }
+
+      $("#toggleDot").click(function () {
+        toggleRewards();
+      });
+
+      $(document).keydown(function (event) {
+        if (event.key === "q" || event.key === "Q") {
+          toggleRewards();
+        }
       });
 
       $(".lixi").click(function () {
